@@ -32,5 +32,6 @@ QuantumGen offers an array of powerful features to simplify your tasks and enric
 QuantumGen is designed to enhance your productivity and creativity. Start using it today and unlock a world of possibilities!
 
 <div align="center">
-  <img src="https://example.com/quantumgen-screenshot.png" alt="QuantumGen Screenshot">
+  <img src="![image](https://github.com/DamageCoding/QuantumGen/assets/138550188/5782368e-c52a-41c9-8846-aeb60d9ce895)
+" alt="QuantumGen Screenshot">
 </div>
