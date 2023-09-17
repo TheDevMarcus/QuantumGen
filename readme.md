@@ -29,8 +29,12 @@
 
 
 
-### Example:
+### Commands
 
 ```bash
-$ ablive command1
-$ ablive command2
+/stock (check stock)
+/gen service:
+/mygenhistory
+/addaccount service: account_info:
+/help 
+
