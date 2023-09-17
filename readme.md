@@ -15,7 +15,7 @@
 
 ## About
 
-Welcome to QuantumGen, your versatile AI-powered companion! This collaborative project is the result of dedication and innovation from a group of talented individuals.
+Welcome to QuantumGen, your versatile Replit-powered companion! This collaborative project is the result of dedication and innovation from a group of talented individuals.
 
 ## Usage
 
