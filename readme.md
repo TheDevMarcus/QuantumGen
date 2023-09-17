@@ -1,4 +1,4 @@
-<p align="center">
+<p align="top right">
   <img src="https://cdn.discordapp.com/attachments/1152488450130452497/1152939469784227963/Adobe_Express_20230917_0452580_1.png" alt="Logo">
 </p>
 
