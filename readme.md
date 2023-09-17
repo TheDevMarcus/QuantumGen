@@ -16,7 +16,7 @@
 <h2>About</h2>
 
 <p>
-  A brief description of your project goes here.
+  This bot is made by me and some others
 </p>
 
 ## Table of Contents
@@ -27,13 +27,7 @@
 - [Contributing](#contributing)
 - [License](#license)
 
-## Installation
 
-Provide instructions on how to install and set up your project.
-
-## Usage
-
-Explain how to use your project, including any necessary commands.
 
 ### Example:
 
