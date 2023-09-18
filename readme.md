@@ -1,15 +1,17 @@
 # QuantumGen
 
-![QuantumGen Logo](https://cdn.discordapp.com/attachments/1152488450130452497/1152939469784227963/Adobe_Express_20230917_0452580_1.png)
-
 Welcome to QuantumGen, your versatile Replit-powered companion! This collaborative project is the result of dedication and innovation from a group of talented individuals.
+
+<p align="right">
+  <img src="https://cdn.discordapp.com/attachments/1152488450130452497/1152939469784227963/Adobe_Express_20230917_0452580_1.png" alt="QuantumGen Logo" width="150">
+</p>
 
 ## Table of Contents
 - [About](#about)
 - [Setup](#setup)
 - [How to Add Accounts](#how-to-add-accounts)
 - [Usage](#usage)
-- [Commands](#commands)
+ - [Commands](#commands)
 - [Screenshots](#screenshots)
 - [Contributing](#contributing)
 - [License](#license)
