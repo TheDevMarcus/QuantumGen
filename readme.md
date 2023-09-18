@@ -1,5 +1,7 @@
 # QuantumGen
 
+![QuantumGen Logo](https://cdn.discordapp.com/attachments/1152488450130452497/1152939469784227963/Adobe_Express_20230917_0452580_1.png)
+
 Welcome to QuantumGen, your versatile Replit-powered companion! This collaborative project is the result of dedication and innovation from a group of talented individuals.
 
 ## Table of Contents
@@ -61,8 +63,8 @@ QuantumGen is designed to enhance your productivity and creativity. Start using 
 
 ## Contributing
 
-We welcome contributions from the community! If you have ideas for improvements or would like to report issues, please create a GitHub issue or submit a pull request.
+We welcome contributions from the community! If you have ideas for improvements, bug reports, or would like to contribute code, please create a GitHub issue or submit a pull request. Check out our [Contributing Guidelines](CONTRIBUTING.md) for more details.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE). By contributing to QuantumGen, you agree to abide by the terms of this license.
