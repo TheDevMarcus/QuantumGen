@@ -1,3 +1,4 @@
+Read Readme.md frist
 import nextcord
 import os
 import random
@@ -18,17 +19,52 @@ intents.typing = True
 
 server_name = "GeniXperts"  # Replace with your server name
 server_logo = "https://cdn.discordapp.com/attachments/1152488450130452497/1152939469784227963/Adobe_Express_20230917_0452580_1.png"
-
-# Define services and their details (extension, display name, username label, password label)
 services = {
-    "discord": {"ext": "txt", "display_name": "Discord", "username_label": "Username", "password_label": "Password"},
-    "twitch": {"ext": "txt", "display_name": "Twitch", "username_label": "Username", "password_label": "Password"},
-    "roblox": {"ext": "txt", "display_name": "Roblox", "username_label": "Username", "password_label": "Password"},
-    "minecraft": {"ext": "txt", "display_name": "Minecraft", "username_label": "Username", "password_label": "Password"},
-    "netflix": {"ext": "txt", "display_name": "Netflix", "username_label": "Email", "password_label": "Password"},
-    "epicgames": {"ext": "txt", "display_name": "Epic Games", "username_label": "Username", "password_label": "Password"},
+    "discord": {
+        "ext": "txt",
+        "display_name": "Discord",
+        "username_label": "Username",
+        "password_label": "Password"
+    },
+    "twitch": {
+        "ext": "txt",
+        "display_name": "Twitch",
+        "username_label": "Username",
+        "password_label": "Password"
+    },
+    "roblox": {
+        "ext": "txt",
+        "display_name": "Roblox",
+        "username_label": "Username",
+        "password_label": "Password"
+    },
+    "minecraft": {
+        "ext": "txt",
+        "display_name": "Minecraft",
+        "username_label": "Username",
+        "password_label": "Password"
+    },
+    "netflix": {
+        "ext": "txt",
+        "display_name": "Netflix",
+        "username_label": "Email",
+        "password_label": "Password"
+    },
+    "epicgames": {
+        "ext": "txt",
+        "display_name": "Epic Games",
+        "username_label": "Username",
+        "password_label": "Password"
+    },
+    "twitchtokens": {
+        "ext": "txt",
+        "display_name": "Twitch Tokens",
+        "token_only": True  # Specify token-only mode for Twitch Tokens
+    },
     # Add more services here with their extensions, display names, username, and password labels
 }
+
+
 
 # Implement a function to calculate stock left based on your data
 def get_stock_left():
@@ -44,15 +80,37 @@ async def on_ready():
     print("Running")
 
 async def update_status():
+    member_mode = True  # Initialize with member count mode
     while True:
-        stock_left = get_stock_left()
-        await bot.change_presence(
-            activity=nextcord.Activity(
-                type=nextcord.ActivityType.watching,
-                name=f"{stock_left} Stock left"
+        if member_mode:
+            # Get the number of members in the server
+            server = bot.get_guild(1152488450105282591)  # Replace YOUR_SERVER_ID with your actual server ID
+            member_count = len(server.members) if server else 0
+
+            # Update the bot's status to display member count
+            await bot.change_presence(
+                activity=nextcord.Activity(
+                    type=nextcord.ActivityType.watching,
+                    name=f"{member_count} Members"
+                )
             )
-        )
-        await asyncio.sleep(3.0)  # Update status every 1 hour
+        else:
+            # Get the current stock count
+            stock_left = get_stock_left()
+
+            # Update the bot's status to display stock count
+            await bot.change_presence(
+                activity=nextcord.Activity(
+                    type=nextcord.ActivityType.watching,
+                    name=f"{stock_left} Stock left"
+                )
+            )
+
+        # Toggle between member mode and stock mode
+        member_mode = not member_mode
+
+        await asyncio.sleep(10)  # Swap status every 30 seconds
+
 
 @bot.slash_command(name="gen", description="Generate free accounts (Discord, Twitch, Roblox, and more)")
 async def gen(inter, service):
