@@ -6,12 +6,21 @@
 
 Welcome to QuantumGen, your versatile Replit-powered companion! This collaborative project is the result of dedication and innovation from a group of talented individuals.
 
+<div align="center">
+  <a href="https://github.com/DamageCoding/QuantumGen/stargazers">
+    <img src="https://img.shields.io/github/stars/DamageCoding/QuantumGen?style=for-the-badge" alt="GitHub Stars">
+  </a>
+  <a href="https://github.com/DamageCoding/QuantumGen/network">
+    <img src="https://img.shields.io/github/forks/DamageCoding/QuantumGen?style=for-the-badge" alt="GitHub Forks">
+  </a>
+</div>
+
 ## Table of Contents
 - [About](#about)
 - [Getting Started](#getting-started)
 - [How to Add Accounts](#how-to-add-accounts)
 - [Usage](#usage)
-- [Commands](#commands)
+  - [Commands](#commands)
 - [Screenshots](#screenshots)
 - [Contributing](#contributing)
 - [License](#license)
