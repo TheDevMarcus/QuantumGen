@@ -7,7 +7,7 @@ Welcome to QuantumGen, your versatile Replit-powered companion! This collaborati
 - [Setup](#setup)
 - [How to Add Accounts](#how-to-add-accounts)
 - [Usage](#usage)
-  - [Commands](#commands)
+- [Commands](#commands)
 - [Screenshots](#screenshots)
 - [Contributing](#contributing)
 - [License](#license)
