@@ -17,6 +17,23 @@
 
 Welcome to QuantumGen, your versatile Replit-powered companion! This collaborative project is the result of dedication and innovation from a group of talented individuals.
 
+## Setup
+Make a folder named freestock and make all the files in there
+Chatgpt3.txt
+discord.txt
+epicgames.txt
+github.txt
+minecraft.txt
+netflix.txt
+nordvpn.txt
+roblox.txt
+twitch.txt
+
+## How to add accounts
+Find any ways but here is a way to add to the files
+Twitch.txt - Username|Password 
+discord.txt - Email|Password
+
 ## Usage
 
 QuantumGen offers an array of powerful features to simplify your tasks and enrich your experience. Let's explore its capabilities through the following commands:
