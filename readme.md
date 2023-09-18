@@ -1,31 +1,32 @@
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1152488450130452497/1152939469784227963/Adobe_Express_20230917_0452580_1.png" alt="QuantumGen Logo" width="150">
+</div>
+
 # QuantumGen
 
 Welcome to QuantumGen, your versatile Replit-powered companion! This collaborative project is the result of dedication and innovation from a group of talented individuals.
 
-<p align="right">
-  <img src="https://cdn.discordapp.com/attachments/1152488450130452497/1152939469784227963/Adobe_Express_20230917_0452580_1.png" alt="QuantumGen Logo" width="150">
-</p>
-
 ## Table of Contents
 - [About](#about)
-- [Setup](#setup)
+- [Getting Started](#getting-started)
 - [How to Add Accounts](#how-to-add-accounts)
 - [Usage](#usage)
- - [Commands](#commands)
+- [Commands](#commands)
 - [Screenshots](#screenshots)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## About
 
-QuantumGen is a powerful tool designed to simplify various tasks and enhance your experience. It offers a wide range of features to meet your needs, from checking stock availability to generating content.
+QuantumGen is a powerful and user-friendly tool designed to simplify various tasks and enhance your experience. Whether you need to check stock availability or generate content, QuantumGen has you covered.
 
-## Setup
+## Getting Started
 
-To get started with QuantumGen, follow these steps:
+To start using QuantumGen, follow these steps:
 
-1. Create a folder named `freestock`.
-2. Inside the `freestock` folder, create the following text files:
+1. Clone this repository.
+2. Create a folder named `freestock` in the project directory.
+3. Inside the `freestock` folder, create the following text files:
    - `Chatgpt3.txt`
    - `discord.txt`
    - `epicgames.txt`
@@ -61,7 +62,9 @@ QuantumGen is designed to enhance your productivity and creativity. Start using 
 
 ## Screenshots
 
-![QuantumGen Screenshot](https://cdn.discordapp.com/attachments/1152488450130452497/1152959161391398922/image.png)
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1152488450130452497/1152959161391398922/image.png" alt="QuantumGen Screenshot" width="400">
+</div>
 
 ## Contributing
 
