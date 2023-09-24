@@ -1,0 +1,4 @@
+Userid of blacklisted user
+userid1
+userid2
+as many as you want
