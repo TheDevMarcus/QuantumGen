@@ -114,10 +114,6 @@ async def gen(inter, service):
         )
         await inter.send(embed=embed, ephemeral=True)
         return
-@bot.slash_command(name="gen", description="Generate free accounts (Discord, Twitch, Roblox, and more)")
-async def gen(inter, service):
-    user = inter.user
-    user_id = inter.user.id
 
     # Check if the user is on cooldown
     if user_id in free_cooldowns:
