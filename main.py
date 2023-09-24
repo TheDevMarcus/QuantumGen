@@ -1,4 +1,3 @@
-Read Readme.md frist
 import nextcord
 import os
 import random
@@ -7,6 +6,16 @@ import asyncio
 import typing
 from nextcord.ext import commands
 from keep_alive import keep_alive
+import time  # Import the time module
+
+print("""
+.▄▄▄  ▄• ▄▌ ▄▄▄·  ▐ ▄ ▄▄▄▄▄▄• ▄▌• ▌ ▄ ·.      ▄▄ • ▄▄▄ . ▐ ▄ 
+▐▀•▀█ █▪██▌▐█ ▀█ •█▌▐█•██  █▪██▌·██ ▐███▪    ▐█ ▀ ▪▀▄.▀·•█▌▐█
+█▌·.█▌█▌▐█▌▄█▀▀█ ▐█▐▐▌ ▐█.▪█▌▐█▌▐█ ▌▐▌▐█·    ▄█ ▀█▄▐▀▀▪▄▐█▐▐▌
+▐█▪▄█·▐█▄█▌▐█▪ ▐▌██▐█▌ ▐█▌·▐█▄█▌██ ██▌▐█▌    ▐█▄▪▐█▐█▄▄▌██▐█▌
+·▀▀█.  ▀▀▀  ▀  ▀ ▀▀ █▪ ▀▀▀  ▀▀▀ ▀▀  █▪▀▀▀    ·▀▀▀▀  ▀▀▀ ▀▀ █▪
+-------------------------------------------------------------
+""")
 
 free_gen_channel = 1152488451254538288  # Channel ID here
 keep_alive()
@@ -31,35 +40,6 @@ services = {
         "display_name": "Twitch",
         "username_label": "Username",
         "password_label": "Password"
-    },
-    "roblox": {
-        "ext": "txt",
-        "display_name": "Roblox",
-        "username_label": "Username",
-        "password_label": "Password"
-    },
-    "minecraft": {
-        "ext": "txt",
-        "display_name": "Minecraft",
-        "username_label": "Username",
-        "password_label": "Password"
-    },
-    "netflix": {
-        "ext": "txt",
-        "display_name": "Netflix",
-        "username_label": "Email",
-        "password_label": "Password"
-    },
-    "epicgames": {
-        "ext": "txt",
-        "display_name": "Epic Games",
-        "username_label": "Username",
-        "password_label": "Password"
-    },
-    "twitchtokens": {
-        "ext": "txt",
-        "display_name": "Twitch Tokens",
-        "token_only": True  # Specify token-only mode for Twitch Tokens
     },
     # Add more services here with their extensions, display names, username, and password labels
 }
@@ -111,30 +91,54 @@ async def update_status():
 
         await asyncio.sleep(10)  # Swap status every 30 seconds
 
+# Function to load the blacklist from the "blacklist.txt" file
+def load_blacklist():
+    with open("blacklist.txt", "r") as file:
+        blacklist = [line.strip() for line in file.readlines()]
+    return blacklist
 
+# Load the blacklist at the start of the bot
+blacklist = load_blacklist()
+
+@bot.slash_command(name="gen", description="Generate free accounts (Discord, Twitch, Roblox, and more)")
+async def gen(inter, service):
+    user = inter.user
+    user_id = str(user.id)
+
+    # Check if the user is on the blacklist
+    if user_id in blacklist:
+        embed = nextcord.Embed(
+            title="Blacklisted User",
+            description="You are not allowed to use this command.",
+            color=nextcord.Color.red(),
+        )
+        await inter.send(embed=embed, ephemeral=True)
+        return
 @bot.slash_command(name="gen", description="Generate free accounts (Discord, Twitch, Roblox, and more)")
 async def gen(inter, service):
     user = inter.user
     user_id = inter.user.id
 
+    # Check if the user is on cooldown
     if user_id in free_cooldowns:
-        remaining_cooldown = free_cooldowns[user_id]
-        hours = remaining_cooldown // 3600
-        minutes = (remaining_cooldown % 3600) // 60
-        seconds = remaining_cooldown % 60
+        remaining_cooldown = free_cooldowns[user_id] - time.time()
+        if remaining_cooldown > 0:
+            hours = int(remaining_cooldown // 3600)
+            minutes = int((remaining_cooldown % 3600) // 60)
+            seconds = int(remaining_cooldown % 60)
 
-        cooldown_message = (
-            f"**Command Cooldown:** You can use this command again in "
-            f"{hours} hours, {minutes} minutes, and {seconds} seconds."
-        )
+            cooldown_message = (
+                f"**Command Cooldown:** You can use this command again in "
+                f"{hours} hours, {minutes} minutes, and {seconds} seconds."
+            )
 
-        embed = nextcord.Embed(
-            title="Cooldown",
-            description=cooldown_message,
-            color=nextcord.Color.red(),
-        )
-        await inter.send(embed=embed, ephemeral=True)
-        return
+            embed = nextcord.Embed(
+                title="Cooldown",
+                description=cooldown_message,
+                color=nextcord.Color.red(),
+            )
+            await inter.send(embed=embed, ephemeral=True)
+            return
 
     if inter.channel.id != free_gen_channel:
         embed = nextcord.Embed(title="Wrong Channel! Use <#free_gen_channel>", color=nextcord.Color.red())
@@ -165,7 +169,12 @@ async def gen(inter, service):
             embed = nextcord.Embed(title=f"Out of stock for {service_details['display_name']}!",
                                    description="Please wait until we restock.",
                                    color=nextcord.Color.red())
-            await inter.send(embed=embed, ephemeral=True)
+            out_of_stock_msg = await inter.send(embed=embed, ephemeral=True)
+
+            # Delete the "Out of stock" message after 30 seconds
+            await asyncio.sleep(30)
+            await out_of_stock_msg.delete()
+
             return
 
     account = random.choice(lines)
@@ -190,6 +199,8 @@ async def gen(inter, service):
     embed.add_field(name=f"Service Type:", value=f"```{service_details['display_name']}```")
     embed.add_field(name=f"{username_label}:", value=f"```{str(User)}```")
     embed.add_field(name=f"{password_label}:", value=f"```{str(Password)}```")
+
+    # Send the account information as a DM to the user
     await user.send(embed=embed)
 
     name = (stock_file[0].upper() + stock_file[1:].lower()).replace(".txt", "")
@@ -198,19 +209,27 @@ async def gen(inter, service):
                             color=nextcord.Color.green())
     embed1.set_footer(text=server_name, icon_url=server_logo)
     embed1.set_thumbnail(url=server_logo)
-    await inter.send(embed=embed1)
+    out_of_stock_msg = await inter.send(embed=embed1)
 
     # Remove the account from the current stock file
     lines.remove(account)
     with open(f"freestock//{stock_file}", "w", encoding='utf-8') as file:
         file.write("\n".join(lines))
 
-    free_cooldowns[user_id] = 3600  # 1 hour cooldown
+  
+    # Delete the "Out of stock" message after 30 seconds
+    await asyncio.sleep(30)
+    await out_of_stock_msg.delete()
+
+
+
+    free_cooldowns[user_id] = time.time() + 3600  # 1 hour cooldown
 
     async def cooldown_task():
         await asyncio.sleep(3600)  # Sleep for 1 hour
         del free_cooldowns[user_id]
     bot.loop.create_task(cooldown_task())
+
 
 @bot.slash_command(name="stock", description="View free stock!")
 async def freestock(inter: nextcord.Interaction):
@@ -236,8 +255,6 @@ async def help(ctx):
     embed.add_field(name="/stock", value="View free stock", inline=False)
 
     await ctx.send(embed=embed)
-
-
 
 # Define the allowed user ID
 allowed_user_id = 1147153683742724147
@@ -271,12 +288,6 @@ async def add_account(ctx: nextcord.Interaction, service: str, account_info: str
     await ctx.send(f"Account for {service} added to the stock.")
 
     # You should also update the stock count and potentially handle any other logic here.
-
-# Your existing code ...
-
-# The rest of your code remains unchanged
-
-
 
 # Function to get a user's generation history (replace with your actual implementation)
 def get_user_gen_history(user_id):
@@ -315,11 +326,71 @@ async def mygenhistory(ctx: nextcord.Interaction):
 
 
 
+@bot.event
+async def on_member_join(member):
+    # Replace YOUR_WELCOME_CHANNEL_ID with the actual ID of your welcome channel
+    welcome_channel_id = 1155243230451994696
+
+    channel = member.guild.get_channel(welcome_channel_id)
+    if channel:
+        # Create an embedded welcome message
+        embed = nextcord.Embed(
+            title=f"Welcome to the server, {member.display_name}!",
+            description="We're excited to have you here.",
+            color=nextcord.Color.green()  # You can customize the color here
+        )
+        
+        # Use member's avatar URL (use default avatar if no custom avatar)
+        avatar_url = member.avatar.url if member.avatar else member.default_avatar.url
+        embed.set_thumbnail(url=avatar_url)
+        
+        embed.add_field(name="Rules", value="Please review the server rules in the <#1154467259679514735> channel.")
+        embed.add_field(name="Get Started", value="Get started by verifying in <#1152948712780353587>.")
+        embed.set_footer(text=f"Joined {member.guild.name}", icon_url=member.guild.icon.url)
+
+        # Send the welcome message
+        await channel.send(embed=embed)
 
 
 
 
 
 
+@bot.event
+async def on_member_remove(member):
+    # Replace this with the action you want to perform when a member leaves
+    # For example, you can send a farewell message in a specific channel
+    farewell_channel_id = 1155337754754945024  # Replace with the actual channel ID
+    
+    # Get the farewell channel
+    farewell_channel = member.guild.get_channel(farewell_channel_id)
+    if farewell_channel:
+        # Create an embedded farewell message
+        embed = nextcord.Embed(
+            title=f"Goodbye, {member.display_name}!",
+            description="We'll miss you hope you enjoyed our gen.",
+            color=nextcord.Color.red()  # You can customize the color here
+        )
+        
+        # Use member's avatar URL (use default avatar if no custom avatar)
+        avatar_url = member.avatar.url if member.avatar else member.default_avatar.url
+        embed.set_thumbnail(url=avatar_url)
+        
+        # Send the farewell message as an embedded message
+        await farewell_channel.send(embed=embed)
+
+
+
+
+
+
+
+
+
+# Your existing code ...
+
+# The rest of your code remains unchanged
+
+# ... (rest of your code)
 
 bot.run(os.environ["token"])
