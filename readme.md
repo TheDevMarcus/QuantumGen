@@ -1,3 +1,4 @@
+
 <div align="center">
   <img src="https://cdn.discordapp.com/attachments/1152488450130452497/1152939469784227963/Adobe_Express_20230917_0452580_1.png" alt="QuantumGen Logo" width="150">
 </div>
@@ -51,11 +52,16 @@ QuantumGen offers a comprehensive set of commands to help you make the most of i
 
 ### Commands
 
-- `/stock`: Check stock availability.
-- `/gen service`: Generate a wide range of content tailored to your needs.
-- `/mygenhistory`: View your generation history for easy reference.
-- `/addaccount service: account_info`: Seamlessly add and manage your accounts.
-- `/help`: Get instant assistance and explore additional functionalities.
+1. `/gen [service]`: Generate free accounts for various services like Discord, Twitch, and Roblox.
+2. `/stock`: View the current stock of free accounts.
+3. `/help`: Display a list of all available commands.
+4. `/mygenhistory`: View your generation history of accounts.
+5. `/feedback`: Submit feedback about the bot.
+6. `/credits`: View the credits for the server.
+7. `/restockinfo`: Get information about the account restocking schedule (Bot only).
+8. `/addaccount [service] [account_info]`: Add an account to the stock (Bot only).
+
+Please note that some commands may have additional functionalities and may require specific input parameters. If you have any questions or need assistance with a particular command, feel free to ask!
 
 QuantumGen is meticulously crafted to elevate your productivity and creativity. Start using it today and unlock a world of possibilities!
 
