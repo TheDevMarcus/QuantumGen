@@ -30,22 +30,12 @@ Welcome to QuantumGen, your versatile Replit-powered companion! This collaborati
 QuantumGen is a powerful and user-friendly tool designed to simplify a wide range of tasks and enhance your overall experience. Whether you need to check stock availability or generate content, QuantumGen has you covered.
 
 ## Getting Started
-
-To start using QuantumGen, follow these simple steps:
-
-1. Clone this repository.
-2. Create a folder named `freestock` in the project directory.
-3. Inside the `freestock` folder, create the following text files:
-   - `Chatgpt3.txt`
-   - `discord.txt`
-   - `epicgames.txt`
-   - `github.txt`
-   - `minecraft.txt`
-   - `netflix.txt`
-   - `nordvpn.txt`
-   - `roblox.txt`
-   - `twitch.txt`
-
+___________________________
+To start using QuantumGen |
+                          |
+Clone this repository.    |
+                          |
+___________________________
 ## How to Add Accounts
 
 You can add accounts to the respective files in the following format:
