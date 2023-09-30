@@ -27,7 +27,7 @@ bot = commands.Bot(intents=intents, help_command=None)
 intents.typing = True
 
 server_name = "GeniXperts"  # Replace with your server name
-server_logo = "https://cdn.discordapp.com/attachments/1152488450130452497/1152939469784227963/Adobe_Express_20230917_0452580_1.png"
+server_logo = "https://cdn.discordapp.com/attachments/1152488450918977593/1155211034324385872/lv_0_20230923113316.gif"
 services = {
     "discord": {
         "ext": "txt",
@@ -44,6 +44,12 @@ services = {
       "roblox": {
         "ext": "txt",
         "display_name": "Roblox",
+        "username_label": "Username",
+        "password_label": "Password"
+    },
+        "steam": {
+        "ext": "txt",
+        "display_name": "Steam",
         "username_label": "Username",
         "password_label": "Password"
     },
@@ -67,6 +73,7 @@ def get_stock_left():
 async def on_ready():
     await update_status()  # Set the initial status
     print("Running")
+
 
 async def update_status():
     swap_flag = False  # Initialize a flag to swap between member count and stock count
@@ -479,102 +486,119 @@ async def restock_info(ctx):
     await message.delete()
 
 
-# Rest of your code ...
-
-# ... (Rest of your code, including other commands/functions and bot initialization) ...
-
-# Run the bot
-bot.run(os.environ["token"])
+# User id
 
 
-import nextcord
 
-@bot.event
-async def on_member_join(member):
-    # This event is triggered when a member joins the server
+@bot.slash_command(name="getuserids", description="Get and save all user IDs and usernames in a server")
+async def get_user_ids(ctx: nextcord.Interaction):
+    # Check if the command is invoked by a user with administrative permissions
+    if ctx.user.guild_permissions.administrator:
+        # Fetch all members in the server
+        members = ctx.guild.members
 
-    # Replace '1155243230451994696' with the ID of your target channel
-    channel_id = 1155243230451994696
-    welcome_channel = bot.get_channel(channel_id)
+        # Create a list of user ID and username pairs
+        user_info = [f"{member.id}: {member.display_name}" for member in members]
 
-    if welcome_channel:
-        embed = discord.Embed(
-            title=f'Welcome to the server, {member.display_name}!',
-            description="We're excited to have you here.",
-            color=0x00ff00  # You can customize the color here
-        )
-        embed.add_field(name="Rules", value="Please review the server rules in the 📋・rules channel.")
-        embed.add_field(name="Get Started", value="Get started by verifying in the ☑・verify channel.")
-        embed.set_thumbnail(url=member.avatar_url)
+        # Create or overwrite id.txt and write the user IDs and usernames to it
+        with open("id.txt", "w") as id_file:
+            id_file.write("\n".join(user_info))
 
-        await welcome_channel.send(embed=embed)
+        # Send a message confirming the action
+        await ctx.send("User IDs and usernames have been saved to id.txt.", ephemeral=True)
+    else:
+        await ctx.send("This command is only available to users with administrative permissions.", ephemeral=True)
+
+
+
+
+#blacklist command
 
 
 
 
 
+@bot.slash_command(name="blacklist", description="Add a user to the blacklist")
+async def blacklist_user(ctx: nextcord.Interaction, user: nextcord.User):
+    # Check if the command is invoked by a user with administrative permissions
+    if ctx.user.guild_permissions.administrator:
+        # Get the ID of the user to be blacklisted
+        user_id = user.id
+
+        # Check if the user is already blacklisted
+        with open("blacklist.txt", "r") as blacklist_file:
+            blacklisted_ids = blacklist_file.read().splitlines()
+
+        if str(user_id) in blacklisted_ids:
+            await ctx.send(f"{user.mention} is already blacklisted.", ephemeral=True)
+        else:
+            # Add the user ID to the blacklist file
+            with open("blacklist.txt", "a") as blacklist_file:
+                blacklist_file.write(str(user_id) + "\n")
+
+            await ctx.send(f"{user.mention} has been blacklisted.", ephemeral=True)
+    else:
+        await ctx.send("This command is only available to users with administrative permissions.", ephemeral=True)
 
 
 
+# Unblacklist
+@bot.slash_command(name="unblacklist", description="Remove a user from the blacklist")
+async def unblacklist_user(ctx: nextcord.Interaction, user: nextcord.User):
+    # Check if the command is invoked by a user with administrative permissions
+    if ctx.user.guild_permissions.administrator:
+        # Get the ID of the user to be unblacklisted
+        user_id = user.id
 
-@bot.event
-async def on_member_remove(member):
-    # Replace this with the action you want to perform when a member leaves
-    # For example, you can send a farewell message in a specific channel
-    farewell_channel_id = 1155337754754945024 # Replace with the actual channel ID
-    
-    # Get the farewell channel
-    farewell_channel = member.guild.get_channel(farewell_channel_id)
-    if farewell_channel:
-        # Create an embedded farewell message
-        embed = nextcord.Embed(
-            title=f"Goodbye, {member.display_name}!",
-            description="We'll miss you hope you enjoyed our gen.",
-            color=nextcord.Color.red()  # You can customize the color here
-        )
-        
-        # Use member's avatar URL (use default avatar if no custom avatar)
-        avatar_url = member.avatar.url if member.avatar else member.default_avatar.url
-        embed.set_thumbnail(url=avatar_url)
-        
-        # Send the farewell message as an embedded message
-        await farewell_channel.send(embed=embed)
+        # Check if the user is in the blacklist
+        with open("blacklist.txt", "r") as blacklist_file:
+            blacklisted_ids = blacklist_file.read().splitlines()
+
+        if str(user_id) in blacklisted_ids:
+            # Remove the user ID from the blacklist file
+            blacklisted_ids.remove(str(user_id))
+
+            # Write the updated blacklist back to the file
+            with open("blacklist.txt", "w") as blacklist_file:
+                blacklist_file.write("\n".join(blacklisted_ids))
+
+            await ctx.send(f"{user.mention} has been removed from the blacklist.", ephemeral=True)
+        else:
+            await ctx.send(f"{user.mention} is not in the blacklist.", ephemeral=True)
+    else:
+        await ctx.send("This command is only available to users with administrative permissions.", ephemeral=True)
 
 
-
-
-@bot.event
-async def on_message(message):
-    # Check if the message is in the target channel and not sent by the specified user
-    if message.channel.id == 1152488451254538288 and message.author.id != 1153437951192203305:
-        # Wait for 30 seconds
-        await asyncio.sleep(5)
-        # Delete the message
-        await message.delete()
-
-@bot.event
-async def on_message(message):
-    # Check if the message is in the target channel and is sent by the bot itself
-    if message.channel.id == 1152488451254538288 and message.author.id == bot.user.id:
-        # Wait for 5 seconds
-        await asyncio.sleep(5)
-        # Delete the message
-        await message.delete()
+#ban commnd 
+@bot.slash_command(name="ban", description="Ban a user from the server")
+async def ban_user(ctx: nextcord.Interaction, user: nextcord.User):
+    # Check if the command is invoked by a user with administrative permissions
+    if ctx.user.guild_permissions.administrator:
+        try:
+            await ctx.guild.ban(user, reason="Banned by command")
+            await ctx.send(f"{user.mention} has been banned.", ephemeral=True)
+        except nextcord.errors.NotFound:
+            await ctx.send("User not found.", ephemeral=True)
+    else:
+        await ctx.send("This command is only available to users with administrative permissions.", ephemeral=True)
 
 
 
-# Your existing code ...
+# Service request 
+@bot.slash_command(name="genrequest", description="Request a specific service for account generation.")
+async def request_service(ctx: nextcord.Interaction, service: str):
+    # Get the user's ID and display name
+    user_id = ctx.user.id
+    user_display_name = ctx.user.display_name
 
+    # Create a formatted request message
+    request_message = f"User ID: {user_id}\nUser Display Name: {user_display_name}\nRequested Service: {service}\n\n"
 
+    # Write the request message to the servicerequest.txt file
+    with open("servicerequest.txt", "a") as request_file:
+        request_file.write(request_message)
 
-
-
-
-
-
-
-
-
+    await ctx.send(f"Your request for {service} has been received and recorded. Thank you for your suggestion!", ephemeral=True)
 
 
 
