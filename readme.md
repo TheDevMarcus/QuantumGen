@@ -1,6 +1,7 @@
 
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/1152488450918977593/1155211034324385872/lv_0_20230923113316.gif" alt="QuantumGen Logo" width="150">
+  <img src="![image](https://github.com/DamageCoding/QuantumGen/assets/138550188/441b38e7-a6da-4506-b605-6b26e8619e71)
+" alt="QuantumGen Logo" width="150">
 </div>
 
 # QuantumGen
