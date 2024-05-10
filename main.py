@@ -27,7 +27,7 @@ bot = commands.Bot(intents=intents, help_command=None)
 intents.typing = True
 
 server_name = "GeniXperts"  # Replace with your server name
-server_logo = "https://cdn.discordapp.com/attachments/1152488450918977593/1155211034324385872/lv_0_20230923113316.gif"
+server_logo = "logo.png"
 services = {
     "discord": {
         "ext": "txt",
