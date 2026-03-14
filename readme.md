@@ -147,4 +147,4 @@ Since this project is no longer actively maintained, contributions are not being
 
 ---
 
-**Last Updated: 2023**
+**Last Updated: 2025**
