@@ -1,81 +1,150 @@
+# Discord Account Generator Bot
 
-<div align="center">
-  <img src="logo.png" alt="QuantumGen Logo" width="150">
-</div>
+## ⚠️ DISCLAIMER
+**This project hasn't been actively maintained or worked on since 2023. It may contain bugs, deprecated Discord API features, or security issues. Use at your own risk!**
 
-# QuantumGen
+A Discord bot designed for generating and managing free accounts for various services including Discord, Twitch, Roblox, and Steam.
 
-Welcome to QuantumGen, your versatile Replit-powered companion! This collaborative project is the culmination of dedication and innovation from a group of exceptionally talented individuals.
+## 📋 Features
 
-<div align="center">
-  <a href="https://github.com/DamageCoding/QuantumGen/stargazers">
-    <img src="https://img.shields.io/github/stars/DamageCoding/QuantumGen?style=for-the-badge" alt="GitHub Stars">
-  </a>
-  <a href="https://github.com/DamageCoding/QuantumGen/network">
-    <img src="https://img.shields.io/github/forks/DamageCoding/QuantumGen?style=for-the-badge" alt="GitHub Forks">
-  </a>
-</div>
+- Account generation for multiple services
+- Stock management system
+- User cooldowns
+- Blacklist system
+- Feedback collection
+- Generation logging
+- Admin commands for moderation
+- Automatic status updates (member count/stock count)
+- Service request system
 
-## Table of Contents
-- [About](#about)
-- [Getting Started](#getting-started)
-- [How to Add Accounts](#how-to-add-accounts)
-- [Usage](#usage)
-- [Commands](#commands)
-- [Screenshots](#screenshots)
-- [Contributing](#contributing)
-- [License](#license)
+## 🚀 Commands
 
-## About QuantumGen
+### User Commands
 
-QuantumGen is a powerful and user-friendly tool designed to simplify a wide range of tasks and enhance your overall experience. Whether you need to check stock availability or generate content, QuantumGen has you covered.
+| Command | Description |
+|---------|-------------|
+| /help | Shows all available commands |
+| /gen <service> | Generate a free account (services: discord, twitch, roblox, steam) |
+| /stock | View available stock for all services |
+| /feedback | Submit feedback about the bot |
+| /mygenhistory | View your generation history |
+| /credits | View server credits |
+| /restockinfo | Check the restocking schedule |
+| /genrequest <service> | Request a new service to be added |
 
-## Getting Started
-___________________________
-To start using QuantumGen |
-                          |
-Clone this repository.    |
-                          |
-___________________________
-## How to Add Accounts
+### Admin Commands
 
-You can add accounts to the respective files in the following format:
+| Command | Description |
+|---------|-------------|
+| /addaccount <service> <account_info> | Add accounts to stock (format: username\|password) |
+| /blacklist <user> | Add a user to the blacklist |
+| /unblacklist <user> | Remove a user from the blacklist |
+| /ban <user> | Ban a user from the server |
+| /announce <message> [ping_everyone] [channel] | Make an announcement |
+| /getuserids | Export all user IDs and usernames |
 
-- `Twitch.txt`: `Username|Password`
-- `discord.txt`: `Email|Password`
-- `More comming soon`
-Feel free to explore alternative methods for adding accounts that best suit your preferences.
+## 🔧 Setup
 
-## Usage
+### Prerequisites
 
-QuantumGen offers a comprehensive set of commands to help you make the most of its features:
+- Python 3.8 or higher
+- Discord Bot Token
+- Required Python packages (see requirements.txt)
 
-### Commands
+### Installation
 
-1. `/gen [service]`: Generate free accounts for various services like Discord, Twitch, and Roblox.
-2. `/stock`: View the current stock of free accounts.
-3. `/help`: Display a list of all available commands.
-4. `/mygenhistory`: View your generation history of accounts.
-5. `/feedback`: Submit feedback about the bot.
-6. `/credits`: View the credits for the server.
-7. `/restockinfo`: Get information about the account restocking schedule (Bot only).
-8. `/addaccount [service] [account_info]`: Add an account to the stock (Bot only).
+1. Clone the repository
 
-Please note that some commands may have additional functionalities and may require specific input parameters. If you have any questions or need assistance with a particular command, feel free to ask!
+git clone https://github.com/yourusername/discord-account-generator.git
+cd discord-account-generator
 
-QuantumGen is meticulously crafted to elevate your productivity and creativity. Start using it today and unlock a world of possibilities!
+2. Install dependencies
 
-## Screenshots
+pip install nextcord python-dotenv
 
-<div align="center">
-  <img src="https://cdn.discordapp.com/attachments/1152488450130452497/1152959161391398922/image.png" alt="QuantumGen Screenshot" width="400">
-</div>
+3. Create a `.env` file or set environment variable
 
-## Contributing
+token=YOUR_BOT_TOKEN_HERE
 
-We enthusiastically welcome contributions from the community! If you have ideas for improvements, encounter any issues, or would like to contribute code, please create a GitHub issue or submit a pull request. For more details, refer to our [Contributing Guidelines](CONTRIBUTING.md).
+4. Create necessary directories
 
-## License
+mkdir freestock
 
-This project is licensed under the [MIT License](LICENSE). By contributing to QuantumGen, you agree to abide by the terms of this license.
+5. Configure channel IDs in the code:
+   - free_gen_channel - Channel IDs where gen command can be used
+   - log_channel_id - Channel for generation logs
+   - allowed_user_id - User ID for admin commands
 
+### File Structure
+
+├── freestock/           # Account files (service.txt)
+├── blacklist.txt        # Blacklisted user IDs
+├── feedback.txt         # User feedback storage
+├── servicerequest.txt   # Service requests
+├── id.txt              # Exported user IDs
+└── main.py             # Main bot file
+
+### Account File Format
+
+Account files should be placed in the `freestock/` directory with the naming convention: `service.txt`
+
+Format for account entries:
+
+username|password
+username|password
+
+Example (discord.txt):
+
+john_doe|password123
+jane_smith|securepass456
+
+## ⚙️ Configuration
+
+### Adding New Services
+
+Edit the `services` dictionary in the code:
+
+services = {
+    "servicename": {
+        "ext": "txt",
+        "display_name": "Display Name",
+        "username_label": "Username",
+        "password_label": "Password"
+    },
+}
+
+### Changing Cooldowns
+
+Modify the cooldown time in the gen command:
+
+if user_id in gen_cooldowns and time.time() - gen_cooldowns[user_id] < 1200:  # 1200 seconds = 20 minutes
+
+## 🐛 Known Issues
+
+- Some Discord API features may be deprecated
+- Cooldown system might not persist through bot restarts
+- File-based storage may have race conditions
+- Limited error handling in some commands
+- No database integration (uses flat files)
+
+## ⚠️ Warning
+
+This bot was created for educational purposes and hasn't been updated since 2023. It may:
+- Violate Discord's Terms of Service
+- Have security vulnerabilities
+- Not work with current Discord API versions
+- Contain bugs and stability issues
+
+**Use this code as a reference only. For production use, consider rewriting it with current best practices and security measures.**
+
+## 📝 License
+
+This project is for educational purposes only. Use at your own risk.
+
+## 🤝 Contributing
+
+Since this project is no longer actively maintained, contributions are not being accepted. Feel free to fork the project and maintain your own version.
+
+---
+
+**Last Updated: 2023**
